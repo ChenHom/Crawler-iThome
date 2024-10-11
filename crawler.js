@@ -53,7 +53,7 @@ const extractCategories = (html) => {
             categories.push({ name: categoryName, url: category });
         }
     });
-    console.log('提取到的類別:', categories); // 添加這行來檢查提取到的類別
+    // console.log('提取到的類別:', categories); // 添加這行來檢查提取到的類別
     return categories;
 };
 
@@ -65,7 +65,7 @@ const extractTopics = (html) => {
         const link = $(element).attr('href');
         topics.push({ title, link });
     });
-    console.log('提取到的文章:', topics); // 添加這行來檢查提取到的文章
+    console.log('提取到的系列文章:', topics); // 添加這行來檢查提取到的系列文章
     return topics;
 };
 
@@ -82,12 +82,11 @@ const extractArticles = async (url) => {
     for (let i = 0; i < articleLinks.length; i++) {
         const element = articleLinks[i];
         const articleTitle = $(element).text().trim();
-        const articleLink = $(element).attr('href').trim();
-        const articleUrl = articleLink.startsWith('http') ? articleLink : articleLink;
+        const articleUrl = $(element).attr('href').trim();
         const articleHtml = await fetchPage(articleUrl);
         const article$ = cheerio.load(articleHtml);
         const articleContent = article$('div.qa-markdown').html().trim();
-        articles.push({ title: articleTitle, content: articleContent });
+        articles.push({ title: articleTitle, content: articleContent, link: articleUrl });
     }
     // console.log('提取到的文章內容:', articles); // 添加這行來檢查提取到的文章內容
     return articles; // 返回系列文章的每篇文章內容與標題
@@ -103,15 +102,19 @@ const saveCategoryTopics = (categoryName, topics) => {
     let indexContent = `# ${categoryName}\n\n`;
     topics.forEach(topic => {
         const topicHash = crypto.createHash('md5').update(topic.title).digest('hex');
-        const topicFilePath = path.join(categoryDirPath, topicHash + '.md');
+        const topicDirPath = path.join(categoryDirPath, topicHash);
+        if (!fs.existsSync(topicDirPath)) {
+            fs.mkdirSync(topicDirPath);
+        }
+        const topicFilePath = path.join(topicDirPath, 'index.md');
         let topicContent = `# ${topic.title}\n\n`;
         topic.articles.forEach(article => {
-            const articleFilePath = getCacheFilePath(article.link || article.title);
-            const relativePath = path.relative(categoryDirPath, articleFilePath);
+            const articleFilePath = getCacheFilePath(article.link);
+            const relativePath = path.relative(topicDirPath, articleFilePath);
             topicContent += `- [${article.title}](${relativePath})\n`;
         });
         fs.writeFileSync(topicFilePath, topicContent, 'utf-8');
-        indexContent += `- [${topic.title}](${topicHash}.md)\n`;
+        indexContent += `- [${topic.title}](${path.relative(categoryDirPath, topicFilePath)})\n`;
     });
     fs.writeFileSync(categoryIndexFilePath, indexContent, 'utf-8');
 };
