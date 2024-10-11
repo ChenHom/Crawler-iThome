@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+	<head>
+		<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2024 iThome 鐵人賽</title>
+
+<meta name="description" content="2024 iThome 鐵人賽將於 9 月 1 日開賽，今年除了主題競賽、團體競賽及自我挑戰等3大類型，還全新推出「iThome 鐵人館」邀請大家一起來參加，無論是挑戰連續 30 天發文不中斷，還是來體驗各種 IT 技術學習資源，歡迎一起來參加 IT 界年度盛事！">
+<meta property="og:url" content="https://ithelp.ithome.com.tw/2024ironman" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="2024 iThome 鐵人賽" />
+<meta property="og:description" content="2024 iThome 鐵人賽將於 9 月 1 日開賽，今年除了主題競賽、團體競賽及自我挑戰等3大類型，還全新推出「iThome 鐵人館」邀請大家一起來參加，無論是挑戰連續 30 天發文不中斷，還是來體驗各種 IT 技術學習資源，歡迎一起來參加 IT 界年度盛事！" />
+<meta property="og:image" content="static/2024ironman/img/fb.jpg" />
+<link rel="icon" type="image/x-icon" href="/static/2024ironman/img/apple-touch-icon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+<link rel="stylesheet" href="/static/2024ironman/css/bootstrap-4.5.min.css">
+<link rel="stylesheet" href="/static/2024ironman/css/main.css">
+
+
+<!-- <link rel="stylesheet" href="/static/2024ironman/css/footer.css">
+<link rel="stylesheet" href="/static/2024ironman/css/nav.css"> -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6182VBHV8Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6182VBHV8Y');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i)
+    {
+        w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+        var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),
+            dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    }
+        )(window,document,'script','dataLayer','GTM-NG6R7V3');</script>
+<!-- End Google Tag Manager -->
+
+
+		<meta name="csrf-token" content="7ORs3NB8FhpJALKvDHpDBR7TR9IFsZz82iehGwcA">
+	    		
+	</head>
+<body>
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG6R7V3"
+				height="0" width="0" style="display:none;visibility:hidden">
+		</iframe>
+	</noscript>
+	<link rel="stylesheet" href="/static/2024ironman/css/nav.css">
+
+<!-- Navigation -->
+        <nav class="nav-mainbox navBox" id="nav-xs">
+            <div class="nav-mainbox-logo festival-logo">
+                <a href="https://ithelp.ithome.com.tw/2024ironman/event">
+                    <img src="/static/2024ironman/img/logo-fest-w.svg" alt="iThome 鐵⼈祭">
+                </a>
+            </div>
+            <a type="button" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+            <!-- 991px down hide 公告 -->
+                        
+                                    <div class="nav-mainbox-mid d-none d-lg-flex announcebox">
+                <div class="announcebox-head">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="announcebox-content">
+                    <a href="https://ithelp.ithome.com.tw/announces/120">
+                        <span>【鐵人征程囉】熊俠陪你一起堅持30天 &amp; 加碼延長賽來囉！</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-mainbox-member nav-memberbox navMember">
+                
+                 
+                                <div class="nav-member">
+                                        <!-- login out 登出中 -->
+                    <div class="nav-member-logout">
+                        <ul class="logout-menu">
+                            <li class="nav-li">
+                                <a href="https://ithelp.ithome.com.tw/users/login" class="nav-li-a login">
+                                    登入
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                                    </div>
+                
+            </div>
+            <div class="d-none d-lg-inline-block nav-mainbox-btn-group">
+                <a href="/" class="link-go">回 iT 邦幫忙</a>
+            </div>
+            <nav class="nav-secondbox navSecond">
+                <ul class="nav-secondbox-list">
+                    
+                    <li class="nav-secondbox-li">
+                        <label class="slidedown nav-li-a nav-secondbox-li-a " for="slideMen01"><span>鐵人賽</span>  </label>
+                          <input type="checkbox" id="slideMen01">
+                          <ul class="slideMenu">
+                              <li><a href="https://ithelp.ithome.com.tw/2024ironman/event#homeIntro">關於鐵人賽</a></li>
+                              <li><a href="https://ithelp.ithome.com.tw/2024ironman/event#topic">競賽主題</a></li>
+                              <li><a href="https://ithelp.ithome.com.tw/2024ironman/event#awardDiv">獎項 & 獎品</a></li>
+                              
+                              <li><a href="https://r.itho.me/ironguide2024">活動辦法</a></li>
+                                                            <li>
+                                  <a href="https://ithelp.ithome.com.tw/2024ironman/signup" target="_blank">報名鐵人賽</a>
+                              </li>
+                                                        </ul>
+                    </li>
+                                        <li class="nav-secondbox-li">
+                        <a href="https://ithelp.ithome.com.tw/2024ironman/books" class="nav-secondbox-li-a">鐵人賽系列書</a>
+                    </li>
+                    
+                                        <li class="nav-secondbox-li">
+                        <a href="https://ithelp.ithome.com.tw/2024ironman/signup/list" class="nav-secondbox-li-a">選手列表</a>
+                    </li>
+                    <li class="nav-secondbox-li">
+                        <a href="https://ithelp.ithome.com.tw/2024ironman/signup/team_list" class="nav-secondbox-li-a">團隊列表</a>
+                    </li>
+                                        <li class="nav-secondbox-li">
+                        
+                        <a href="https://ithelp.ithome.com.tw/2024ironman/event#partners" class="nav-secondbox-li-a">合作夥伴</a>
+                    </li>
+                    
+                                        <li class="nav-secondbox-li">
+                        <a href="https://ithelp.ithome.com.tw/2024ironman/signup" class="nav-secondbox-li-a button"><span>報名鐵人賽</span></a>
+                    </li>
+                                                                <li class="nav-secondbox-li">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/signup/my_list" class="nav-secondbox-li-a button"><span><small>鐵人煉成</small>寫文章去</span></a>
+                        </li>
+                    
+                                        <li class="nav-secondbox-li">
+                        <label class="slidedown nav-li-a nav-secondbox-li-a " for="slideMen02"><span>賽事專區 </span></label>
+                          <input type="checkbox" id="slideMen02">
+                          <ul class="slideMenu">
+                             
+                              <li><a href="https://ithelp.ithome.com.tw/2024ironman">所有參賽文章</a></li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/odoo#ir-list" >Odoo</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/javascript#ir-list" >JavaScript</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/kubernetes#ir-list" >Kubernetes</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/python#ir-list" >Python</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/ai-ml-data#ir-list" >AI/ ML & Data</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/devops#ir-list" >DevOps</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/it-management#ir-list" >IT 管理</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/modern-web#ir-list" >Modern Web</a>
+                              </li>
+                              <li>
+                                  <a href="https://ithelp.ithome.com.tw/2024ironman/mobile-development#ir-list" >Mobile Development</a>
+                              </li>
+                              <li>
+                                  <a href="https://ithelp.ithome.com.tw/2024ironman/security#ir-list" >Security</a>
+                              </li>
+                              <li>
+                                  <a href="https://ithelp.ithome.com.tw/2024ironman/software-development#ir-list" >Software Development</a>
+                              </li>
+                              <li>
+                                  <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial#ir-list" >影片教學</a>
+                              </li>
+                              <li>
+                                  <a href="https://ithelp.ithome.com.tw/2024ironman/generative-ai#ir-list" >生成式 AI</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/self#ir-list" >自我挑戰</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/side-project-30#ir-list" >佛心分享-SideProject30</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/it-self-taught#ir-list" >佛心分享-IT 人自學之術</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/my-private-toolbox#ir-list" >佛心分享-我的私藏工具箱</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/it-soft-skills#ir-list" >佛心分享-IT 人的工作軟技能</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/exams-are-not-just-exams#ir-list" >佛心分享-刷題不只是刷題</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/this-is-how-i-got-my-license#ir-list" >佛心分享-我的證照是這樣攻略的</a>
+                              </li>
+                              <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/pm-in-the-jungle#ir-list" >佛心分享-叢林中的 PM</a>
+                              </li>
+                                                            <li>
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/win11-pro#ir-list" >佛心分享-微軟Windows 11 Pro</a>
+                              </li>
+                                                        </ul>
+                      </li>
+                                        
+                </ul>
+            </nav>
+        </nav>
+        <!-- end Navigation -->
+	<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="2024 iThome 鐵人賽" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="2024 iThome 鐵人賽" />
+    <meta property="og:url" content="https://ithelp.ithome.com.tw/2024ironman" />
+    <meta property="og:image" content="https://ithelp.ithome.com.tw/static/2024ironman/img/event/fb.jpg" />
+    <title>2024 iThome 鐵人賽</title>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="https://ithelp.ithome.com.tw/static/2024ironman/css/bootstrap-4.5.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/2024ironman/css/start/articles-style.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6182VBHV8Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6182VBHV8Y');
+    </script>
+    <!-- End Google Analytics -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NG6R7V3');
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<div class="kv-articles">
+    <div class="kv-content">
+        <div class="kv-articles-logo">
+            <img src="https://ithelp.ithome.com.tw/static/2024ironman/img/logo-ironmankv.svg" class="img-fluid" alt="">
+        </div>
+        <div class="kv-articles-subtitle">
+            <span>Share</span> More <span>Gain</span> More            
+        </div>
+    </div>
+    
+</div>
+	<div class="wrapper" style="margin-top:1%;">
+	    <div class="ir-index clearfix" id="ir-list">
+	        <div class="ir-index__list">
+	        	<section class="py-0">
+    <section class="sec-class-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 class-bar">
+
+                    <ul>
+                        <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/contest#ir-list"
+                                class="group-navactive ">
+                                <span>ALL</span>
+                            </a>
+                        </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/odoo#ir-list"
+                                    class="group-nav ">
+                                    <span>Odoo</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/javascript#ir-list"
+                                    class="group-nav ">
+                                    <span>JavaScript</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/kubernetes#ir-list"
+                                    class="group-nav ">
+                                    <span>Kubernetes</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/python#ir-list"
+                                    class="group-nav ">
+                                    <span>Python</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/ai-ml-data#ir-list"
+                                    class="group-nav ">
+                                    <span>AI/ ML &amp; Data</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/devops#ir-list"
+                                    class="group-nav ">
+                                    <span>DevOps</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/it-management#ir-list"
+                                    class="group-nav ">
+                                    <span>IT 管理</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/modern-web#ir-list"
+                                    class="group-nav ">
+                                    <span>Modern Web</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/mobile-development#ir-list"
+                                    class="group-nav ">
+                                    <span>Mobile Development</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/security#ir-list"
+                                    class="group-nav ">
+                                    <span>Security</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/software-development#ir-list"
+                                    class="group-nav ">
+                                    <span>Software Development</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial#ir-list"
+                                    class="group-nav  active ">
+                                    <span>影片教學</span>
+                                </a>
+                            </li>
+                                                    <li class="class-bar-item">
+                                <a href="https://ithelp.ithome.com.tw/2024ironman/generative-ai#ir-list"
+                                    class="group-nav ">
+                                    <span>生成式 AI</span>
+                                </a>
+                            </li>
+                        
+                        <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/self#ir-list"
+                                class="group-nav  ">
+                                自我挑戰
+                            </a>
+                        </li>
+
+                        
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/side-project-30#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-SideProject30</span>
+                            </a>
+                        </li>
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/it-self-taught#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-IT 人自學之術</span>
+                            </a>
+                        </li>
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/my-private-toolbox#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-我的私藏工具箱</span>
+                            </a>
+                        </li>
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/it-soft-skills#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-IT 人的工作軟技能</span>
+                            </a>
+                        </li>
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/exams-are-not-just-exams#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-刷題不只是刷題</span>
+                            </a>
+                        </li>
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/this-is-how-i-got-my-license#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-我的證照是這樣攻略的</span>
+                            </a>
+                        </li>
+                                                <li class="class-bar-item">
+                            <a href="https://ithelp.ithome.com.tw/2024ironman/pm-in-the-jungle#ir-list"
+                                class="group-nav ">
+                                <span>佛心分享-叢林中的 PM</span>
+                            </a>
+                        </li>
+                        
+                         
+                                                  <li class="class-bar-item">
+                             <a href="https://ithelp.ithome.com.tw/2024ironman/win11-pro#ir-list"
+                                 class="group-nav ">
+                                 <span>佛心分享-微軟Windows 11 Pro</span>
+                             </a>
+                         </li>
+                                             </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sec-articles">
+        <div class="container">
+            <div class="row  articles-top">
+                <div class="col-md-4">
+                                            <span class="articles-top-title">影片教學</span>
+                          
+                </div>
+                      
+                <div class="col-md-4 btn-area list-unstyled  ir-lists-switch__select">
+                    <a class="active btn btn-focus" role="button"
+                        href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?tab=latest#ir-list">最新文章</a>
+                    <a class=" btn btn-focus" role="button"
+                        href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?tab=hot#ir-list">熱門文章</a>
+                </div>
+      
+                <div class="col-md-4 total-num">
+                    選手 <span> 16 </span>
+                    文章 <span> 227 </span>
+                </div>
+            </div>
+            <div class="row">
+                <!-- left -->
+                <div class="col-sm-8 articles-left">
+                    <div class="row">
+                        <div class="col-md-12">
+                                                                                                <div class="articles-box">
+                                        <div class="d-sm-flex flex-sm-row justify-content-between ">
+                                            <div class="articles-tag">
+                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial"
+                                                    class="group-badge group-badge--hover">
+                                                    <img class="articles-icon"
+                                                        src="https://ithelp.ithome.com.tw/static/2024ironman/img/topics/video.png"
+                                                        alt="">
+                                                    <span>影片教學</span>
+                                                </a>
+    
+    
+                                            </div>
+                                            <div class="articles-state">
+                                                <span class="day">
+                                                                                                            Day <span class="ir-list__group-topic-num">
+                                                                                                                            27
+                                                                                                                    </span>
+                                                                                                    </span>
+                                                <div class="date"><i class="far fa-clock"></i>
+                                                    2024-10-11</div>
+                                                <div class="views"><i class="fas fa-eye"></i>
+                                                    48</div>
+                                                <div class="comment"><i class="fas fa-comment"></i>
+                                                    0</div>
+                                            </div>
+                                        </div>
+                                        <div class="articles-topic">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20046160/ironman/7191">
+                                                與 GenAI 工具 XX 一起協作 OO 系列 / ChatGPT , copiolt , kling AI ...
+                                            </a>系列
+                                        </div>
+                                        <div class="articles-title">
+    
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10363163">一步步教你用 Cursor 做 WebRTC</a>
+                                        </div>
+    
+                                        <div class="articles-txt">
+                                            題目：一步步教你用 Cursor 做 WebRTC
+大綱：
+
+
+Cursor 是什麼
+
+開發環境 Cursor
+讓輔助 AI 教學 WebRTC
+同時實作 We...
+                                        </div>
+                                        <div class="d-sm-flex flex-sm-row align-items-center articles-box-footer">
+                                            <div class="articles-box-img">
+                                                <a href="https://ithelp.ithome.com.tw/users/20046160/ironman"
+                                                    class="articles-box-img">
+                                                    <img src="https://member.ithome.com.tw/avatars/34523?s=ithelp" class="img-fluid"/>
+
+                                                </a>
+                                            </div>
+                                            <div class="articles-box-item">
+                                                <a href="https://ithelp.ithome.com.tw/users/20046160/ironman">
+                                                    <span class="ir-list__name">Wolke</span>
+                                                </a>
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                                                    <div class="articles-box">
+                                        <div class="d-sm-flex flex-sm-row justify-content-between ">
+                                            <div class="articles-tag">
+                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial"
+                                                    class="group-badge group-badge--hover">
+                                                    <img class="articles-icon"
+                                                        src="https://ithelp.ithome.com.tw/static/2024ironman/img/topics/video.png"
+                                                        alt="">
+                                                    <span>影片教學</span>
+                                                </a>
+    
+    
+                                            </div>
+                                            <div class="articles-state">
+                                                <span class="day">
+                                                                                                            Day <span class="ir-list__group-topic-num">
+                                                                                                                            27
+                                                                                                                    </span>
+                                                                                                    </span>
+                                                <div class="date"><i class="far fa-clock"></i>
+                                                    2024-10-11</div>
+                                                <div class="views"><i class="fas fa-eye"></i>
+                                                    38</div>
+                                                <div class="comment"><i class="fas fa-comment"></i>
+                                                    0</div>
+                                            </div>
+                                        </div>
+                                        <div class="articles-topic">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20083367/ironman/8062">
+                                                淺入淺出 EVM Object Format
+                                            </a>系列
+                                        </div>
+                                        <div class="articles-title">
+    
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10366344">EIP-7620,7698 EOF Contract Creation - Part 2</a>
+                                        </div>
+    
+                                        <div class="articles-txt">
+                                            
+https://www.youtube.com/watch?v=FzYw3_XPJtQ
+今天的影片中要來討論 EIP-7620 與 EIP-7698 ，讓大家...
+                                        </div>
+                                        <div class="d-sm-flex flex-sm-row align-items-center articles-box-footer">
+                                            <div class="articles-box-img">
+                                                <a href="https://ithelp.ithome.com.tw/users/20083367/ironman"
+                                                    class="articles-box-img">
+                                                    <img src="https://member.ithome.com.tw/avatars/72395?s=ithelp" class="img-fluid"/>
+
+                                                </a>
+                                            </div>
+                                            <div class="articles-box-item">
+                                                <a href="https://ithelp.ithome.com.tw/users/20083367/ironman">
+                                                    <span class="ir-list__name">hydai</span>
+                                                </a>
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                                                    <div class="articles-box">
+                                        <div class="d-sm-flex flex-sm-row justify-content-between ">
+                                            <div class="articles-tag">
+                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial"
+                                                    class="group-badge group-badge--hover">
+                                                    <img class="articles-icon"
+                                                        src="https://ithelp.ithome.com.tw/static/2024ironman/img/topics/video.png"
+                                                        alt="">
+                                                    <span>影片教學</span>
+                                                </a>
+    
+    
+                                            </div>
+                                            <div class="articles-state">
+                                                <span class="day">
+                                                                                                            Day <span class="ir-list__group-topic-num">
+                                                                                                                            27
+                                                                                                                    </span>
+                                                                                                    </span>
+                                                <div class="date"><i class="far fa-clock"></i>
+                                                    2024-10-10</div>
+                                                <div class="views"><i class="fas fa-eye"></i>
+                                                    21</div>
+                                                <div class="comment"><i class="fas fa-comment"></i>
+                                                    0</div>
+                                            </div>
+                                        </div>
+                                        <div class="articles-topic">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20161828/ironman/7843">
+                                                投資新挑戰：從股票到加密幣
+                                            </a>系列
+                                        </div>
+                                        <div class="articles-title">
+    
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10366233">Day 27: 乙太坊重大事件回顧！帶你學會找到潛力幣！</a>
+                                        </div>
+    
+                                        <div class="articles-txt">
+                                            點擊圖即可觀看影片!
+
+這集含金量應該是本系列前三高XD(網路文章在介紹這些名詞時通常讓新手看得一頭霧水，通常需要點背景知識，但會出現要補的知識太多的問題)，我...
+                                        </div>
+                                        <div class="d-sm-flex flex-sm-row align-items-center articles-box-footer">
+                                            <div class="articles-box-img">
+                                                <a href="https://ithelp.ithome.com.tw/users/20161828/ironman"
+                                                    class="articles-box-img">
+                                                    <img src="https://member.ithome.com.tw/avatars/186121?s=ithelp" class="img-fluid"/>
+
+                                                </a>
+                                            </div>
+                                            <div class="articles-box-item">
+                                                <a href="https://ithelp.ithome.com.tw/users/20161828/ironman">
+                                                    <span class="ir-list__name">The Kid k66</span>
+                                                </a>
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                                                    <div class="articles-box">
+                                        <div class="d-sm-flex flex-sm-row justify-content-between ">
+                                            <div class="articles-tag">
+                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial"
+                                                    class="group-badge group-badge--hover">
+                                                    <img class="articles-icon"
+                                                        src="https://ithelp.ithome.com.tw/static/2024ironman/img/topics/video.png"
+                                                        alt="">
+                                                    <span>影片教學</span>
+                                                </a>
+    
+    
+                                            </div>
+                                            <div class="articles-state">
+                                                <span class="day">
+                                                                                                            Day <span class="ir-list__group-topic-num">
+                                                                                                                            29
+                                                                                                                    </span>
+                                                                                                    </span>
+                                                <div class="date"><i class="far fa-clock"></i>
+                                                    2024-10-10</div>
+                                                <div class="views"><i class="fas fa-eye"></i>
+                                                    9</div>
+                                                <div class="comment"><i class="fas fa-comment"></i>
+                                                    0</div>
+                                            </div>
+                                        </div>
+                                        <div class="articles-topic">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20152654/ironman/7703">
+                                                給初學者的 linux 命令列介面漫談
+                                            </a>系列
+                                        </div>
+                                        <div class="articles-title">
+    
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10366149">命令列漫談 29: 可以嘗試看看的命令列增強工具 x-cmd</a>
+                                        </div>
+    
+                                        <div class="articles-txt">
+                                            這個影片介紹了一個名為 x-cmd 的新命令列工具。x-cmd 是一個命令列增強工具,結合了傳統命令列工具的功能和像 nix 那樣的環境管理功能。影片展示了 x...
+                                        </div>
+                                        <div class="d-sm-flex flex-sm-row align-items-center articles-box-footer">
+                                            <div class="articles-box-img">
+                                                <a href="https://ithelp.ithome.com.tw/users/20152654/ironman"
+                                                    class="articles-box-img">
+                                                    <img src="https://member.ithome.com.tw/avatars/175851?s=ithelp" class="img-fluid"/>
+
+                                                </a>
+                                            </div>
+                                            <div class="articles-box-item">
+                                                <a href="https://ithelp.ithome.com.tw/users/20152654/ironman">
+                                                    <span class="ir-list__name">tjwei</span>
+                                                </a>
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                                                    <div class="articles-box">
+                                        <div class="d-sm-flex flex-sm-row justify-content-between ">
+                                            <div class="articles-tag">
+                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial"
+                                                    class="group-badge group-badge--hover">
+                                                    <img class="articles-icon"
+                                                        src="https://ithelp.ithome.com.tw/static/2024ironman/img/topics/video.png"
+                                                        alt="">
+                                                    <span>影片教學</span>
+                                                </a>
+    
+    
+                                            </div>
+                                            <div class="articles-state">
+                                                <span class="day">
+                                                                                                            Day <span class="ir-list__group-topic-num">
+                                                                                                                            26
+                                                                                                                    </span>
+                                                                                                    </span>
+                                                <div class="date"><i class="far fa-clock"></i>
+                                                    2024-10-10</div>
+                                                <div class="views"><i class="fas fa-eye"></i>
+                                                    17</div>
+                                                <div class="comment"><i class="fas fa-comment"></i>
+                                                    0</div>
+                                            </div>
+                                        </div>
+                                        <div class="articles-topic">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20103333/ironman/7952">
+                                                三部曲之最後一部 Power Platform with Copilot
+                                            </a>系列
+                                        </div>
+                                        <div class="articles-title">
+    
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10366114">Day26 - Build a Power Pages Web Site Part8 在Power Pages嵌入Power BI報表</a>
+                                        </div>
+    
+                                        <div class="articles-txt">
+                                            
+這個嵌入Power BI報表的設定, 找了三層才找到~
+https://www.facebook.com/groups/818139776290690今年弄了...
+                                        </div>
+                                        <div class="d-sm-flex flex-sm-row align-items-center articles-box-footer">
+                                            <div class="articles-box-img">
+                                                <a href="https://ithelp.ithome.com.tw/users/20103333/ironman"
+                                                    class="articles-box-img">
+                                                    <img src="https://member.ithome.com.tw/avatars/117482?s=ithelp" class="img-fluid"/>
+
+                                                </a>
+                                            </div>
+                                            <div class="articles-box-item">
+                                                <a href="https://ithelp.ithome.com.tw/users/20103333/ironman">
+                                                    <span class="ir-list__name">arksu</span>
+                                                </a>
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                                                    <div class="articles-box">
+                                        <div class="d-sm-flex flex-sm-row justify-content-between ">
+                                            <div class="articles-tag">
+                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial"
+                                                    class="group-badge group-badge--hover">
+                                                    <img class="articles-icon"
+                                                        src="https://ithelp.ithome.com.tw/static/2024ironman/img/topics/video.png"
+                                                        alt="">
+                                                    <span>影片教學</span>
+                                                </a>
+    
+    
+                                            </div>
+                                            <div class="articles-state">
+                                                <span class="day">
+                                                                                                            Day <span class="ir-list__group-topic-num">
+                                                                                                                            26
+                                                                                                                    </span>
+                                                                                                    </span>
+                                                <div class="date"><i class="far fa-clock"></i>
+                                                    2024-10-10</div>
+                                                <div class="views"><i class="fas fa-eye"></i>
+                                                    37</div>
+                                                <div class="comment"><i class="fas fa-comment"></i>
+                                                    0</div>
+                                            </div>
+                                        </div>
+                                        <div class="articles-topic">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20152649/ironman/7872">
+                                                資安 Vtuber 語野飛：陪你讀 NIST CSF 2.0 學資安治理
+                                            </a>系列
+                                        </div>
+                                        <div class="articles-title">
+    
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10366063">[資安 Vtuber 讀資安治理] Day26 NIST CSF 2.0 RS.AN 事件分析</a>
+                                        </div>
+    
+                                        <div class="articles-txt">
+                                            
+事件分析 (RS.AN)
+知識內容
+
+
+事件分析 (RS.AN)
+
+針對事件進行調查，確定事件的根本原因、影響範圍、適當補救措施
+
+
+
+事件分析 (RS.AN...
+                                        </div>
+                                        <div class="d-sm-flex flex-sm-row align-items-center articles-box-footer">
+                                            <div class="articles-box-img">
+                                                <a href="https://ithelp.ithome.com.tw/users/20152649/ironman"
+                                                    class="articles-box-img">
+                                                    <img src="https://member.ithome.com.tw/avatars/175845?s=ithelp" class="img-fluid"/>
+
+                                                </a>
+                                            </div>
+                                            <div class="articles-box-item">
+                                                <a href="https://ithelp.ithome.com.tw/users/20152649/ironman">
+                                                    <span class="ir-list__name">語野飛</span>
+                                                </a>
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                                                                    </div>
+                    </div>
+                </div>
+    
+                
+                <div class="col-sm-4 articles-right">
+                    <div class="row">
+                        <div class="col-md-12">
+    
+                            <div class="side-box">
+                                <div class="side-box-title">熱門文章</div>
+                                <ol class="number-list">
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10343518?sc=hot">2024 Day01 緣起
+</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10343966?sc=hot">2024 Day29 測試自動化注意事項
+</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10343617?sc=hot">2024 Day03 軟體測試的簡介
+</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10343154?sc=hot">🏆 鐵人賽挑戰：掌握Gemini與ChatGPT...</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/articles/10343851?sc=hot">2024 Day19 測試個案的內容
+</a>
+                                        </li>
+                                                                    </ol>
+                            </div>
+    
+                            
+    
+                            <div class="side-box">
+                                <div class="side-box-title">熱門系列</div>
+                                <ol class="number-list">
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20046160/ironman/7100?sc=hot">運用生成式 AI 服務 所提供的API 實做應用開發（以Gemini及...</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20161809/ironman/7078?sc=hot">葬送的軟體測試 - 不懂不想做是會出事
+</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20161290/ironman/7070?sc=hot">使用 Spring AI 打造企業 RAG 知識庫
+</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20168339/ironman/7097?sc=hot">30天整頓職場
+</a>
+                                        </li>
+                                                                            <li class="ir-index-hot__list">
+                                            <a
+                                                href="https://ithelp.ithome.com.tw/users/20161074/ironman/7469?sc=hot">2024 年用 LangGraph 從零開始實現 Agentic AI...</a>
+                                        </li>
+                                                                    </ol>
+                            </div>
+    
+    
+                            <div class="side-box">
+                                <div class="side-box-title">鐵人選手</div>
+                                <div class="user-list">
+                                                                            <div class="user-list-info">
+                                            <a href="https://ithelp.ithome.com.tw/users/20108446/ironman"
+                                                class="articles-box-img">
+                                                <img src="https://member.ithome.com.tw/avatars/127997?s=ithelp" class="img-fluid"/>
+
+                                                飛飛</a>
+                                        </div>
+                                                                            <div class="user-list-info">
+                                            <a href="https://ithelp.ithome.com.tw/users/20121763/ironman"
+                                                class="articles-box-img">
+                                                <img src="https://member.ithome.com.tw/avatars/142607?s=ithelp" class="img-fluid"/>
+
+                                                Penut Chen</a>
+                                        </div>
+                                                                            <div class="user-list-info">
+                                            <a href="https://ithelp.ithome.com.tw/users/20140363/ironman"
+                                                class="articles-box-img">
+                                                <img src="https://member.ithome.com.tw/avatars/162539?s=ithelp" class="img-fluid"/>
+
+                                                leoho0722</a>
+                                        </div>
+                                                                            <div class="user-list-info">
+                                            <a href="https://ithelp.ithome.com.tw/users/20168877/ironman"
+                                                class="articles-box-img">
+                                                <img src="https://member.ithome.com.tw/avatars/198447?s=ithelp" class="img-fluid"/>
+
+                                                rencode</a>
+                                        </div>
+                                                                            <div class="user-list-info">
+                                            <a href="https://ithelp.ithome.com.tw/users/20159225/ironman"
+                                                class="articles-box-img">
+                                                <img src="https://member.ithome.com.tw/avatars/182975?s=ithelp" class="img-fluid"/>
+
+                                                arbin</a>
+                                        </div>
+                                                                    </div>
+                            </div>
+                            <div class="side-box text-center">
+                                <div class="side-box-title">工商時間</div>
+                                <script src="https://itadapi.ithome.com.tw/ads/serve?type=B2&channel=ithome_forum"></script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</section>
+				<!-- 分頁 -->
+								<nav class="pagination-container">
+					<div class="pagination justify-content-center">
+						<a class="pagination-newer disabled"><span><i class="fas fa-caret-left"></i></span></a>
+        
+        
+                    
+            <span class="pagination-inner">
+            
+            
+                                                                        <a class="active"><span>1</span></a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=2">2</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=3">3</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=4">4</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=5">5</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=6">6</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=7">7</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=8">8</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=9">9</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=10">10</a>
+                                                            </span>
+                    
+            <span class="pagination-inner">
+                            <a class="pagination-active"><span>...</span></a>
+            
+            
+                        </span>
+                    
+            <span class="pagination-inner">
+            
+            
+                                                                        <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=37">37</a>
+                                                                                <a href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=38">38</a>
+                                                            </span>
+        
+        
+                    <a class="pagination-older" href="https://ithelp.ithome.com.tw/2024ironman/video-tutorial?page=2" rel="next">
+                <i class="fas fa-caret-right"></i>
+            </a>
+            
+
+					</div>
+				</nav>
+			</div>
+	    </div>
+	</div>
+    		
+        <link rel="stylesheet" href="/static/2024ironman/css/footer.css">
+
+<footer class="footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <script src="https://itadapi.ithome.com.tw/ads/serve?type=B1&channel=ithome_forum"></script>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 footer-box">
+                <h3 class="title-footer">
+                    <img src="https://ithelp.ithome.com.tw/static/2024ironman/img/logo-fest-w.svg" alt="2024 iThome 鐵⼈祭" class="logo">
+                </h3>
+            </div>
+            <div class="col-12 col-md-8 footer-box">
+                <span class="footer-link-sponsor"><a href="mailto:chrishuang@mail.ithome.com.tw?subject=Sponsorship-iThome 鐵人賽&amp;body=你好，我想洽詢 2024 iThome 鐵人賽合作方案。" target="_blank">洽詢贊助</a>  |</span>
+                <span class="footer-link-history">歷年回顧 : 
+                    <a href="/2023ironman" target="_blank">2023</a> / 
+                    <a href="/2022ironman" target="_blank">2022</a> / 
+                    <a href="/2021ironman" target="_blank">2021</a> / 
+                    <a href="/2020-12th-ironman" target="_blank">2020</a> / 
+                    <a href="/2019ironman" target="_blank">2019</a> / 
+                    <a href="/2018ironman" target="_blank">2018</a></span>
+            </div>
+            <div class="col-12 col-md-4 text-right pr-5">
+                <p class="footer-copyright"> Copyright &copy; iThome</p>
+            </div>
+        </div>
+    </div>
+</footer>
+    	<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="/static/2024ironman/js/vendor/jquery-3.3.1.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" async></script>
+
+
+
+<script src="https://cdn.rawgit.com/vuejs/vue/v1.0.24/dist/vue.js"></script>
+
+<script src="https://ithelp.ithome.com.tw/static/2024ironman/js/navbar.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#ironmansSignUpModal').modal('show'); // 頁面載入完成後顯示模態框
+    });
+</script>
+		
+</body>
+
+</html>
