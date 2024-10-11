@@ -69,31 +69,58 @@ const extractTopics = (html) => {
     return topics;
 };
 
-const extractArticleContent = async (url) => {
-    const html = await fetchPage(url);
-    const $ = cheerio.load(html);
-    const content = $('div.qa-panel').text().trim();
-    return content;
+/**
+ * 抓取系列文章的每篇文章內容與標題
+ * @param {string} url - 系列文章的 URL
+ * @returns {Promise<Array>} - 系列文章的每篇文章內容與標題
+ */
+const extractArticles = async (url) => {
+    const html = await fetchPage(url); // 抓取系列文章頁面的 HTML
+    const $ = cheerio.load(html); // 使用 cheerio 解析 HTML
+    const articles = [];
+    const articleLinks = $('a.qa-list__title-link');
+    for (let i = 0; i < articleLinks.length; i++) {
+        const element = articleLinks[i];
+        const articleTitle = $(element).text().trim();
+        const articleLink = $(element).attr('href').trim();
+        const articleUrl = articleLink.startsWith('http') ? articleLink : articleLink;
+        const articleHtml = await fetchPage(articleUrl);
+        const article$ = cheerio.load(articleHtml);
+        const articleContent = article$('div.qa-markdown').html().trim();
+        articles.push({ title: articleTitle, content: articleContent });
+    }
+    // console.log('提取到的文章內容:', articles); // 添加這行來檢查提取到的文章內容
+    return articles; // 返回系列文章的每篇文章內容與標題
 };
 
 const saveCategoryTopics = (categoryName, topics) => {
-    const categoryFileName = encodeURIComponent(categoryName) + '.md';
-    const categoryFilePath = path.join(CATEGORIES_DIR, categoryFileName);
-    let content = `# ${categoryName}\n\n`;
+    const categoryHash = crypto.createHash('md5').update(categoryName).digest('hex');
+    const categoryDirPath = path.join(CATEGORIES_DIR, categoryHash);
+    if (!fs.existsSync(categoryDirPath)) {
+        fs.mkdirSync(categoryDirPath);
+    }
+    const categoryIndexFilePath = path.join(categoryDirPath, 'index.md');
+    let indexContent = `# ${categoryName}\n\n`;
     topics.forEach(topic => {
-        const cacheFilePath = getCacheFilePath(topic.link);
-        const relativePath = path.relative(CATEGORIES_DIR, cacheFilePath);
-        content += `- [${topic.title}](${relativePath})\n`;
-        content += `  ${topic.content}\n\n`;
+        const topicHash = crypto.createHash('md5').update(topic.title).digest('hex');
+        const topicFilePath = path.join(categoryDirPath, topicHash + '.md');
+        let topicContent = `# ${topic.title}\n\n`;
+        topic.articles.forEach(article => {
+            const articleFilePath = getCacheFilePath(article.link || article.title);
+            const relativePath = path.relative(categoryDirPath, articleFilePath);
+            topicContent += `- [${article.title}](${relativePath})\n`;
+        });
+        fs.writeFileSync(topicFilePath, topicContent, 'utf-8');
+        indexContent += `- [${topic.title}](${topicHash}.md)\n`;
     });
-    fs.writeFileSync(categoryFilePath, content, 'utf-8');
+    fs.writeFileSync(categoryIndexFilePath, indexContent, 'utf-8');
 };
 
 const saveTopics = (categoriesWithTopics) => {
     let content = '';
     categoriesWithTopics.forEach(category => {
-        const categoryFileName = encodeURIComponent(category.name) + '.md';
-        const relativePath = path.relative(__dirname, path.join(CATEGORIES_DIR, categoryFileName));
+        const categoryHash = crypto.createHash('md5').update(category.name).digest('hex');
+        const relativePath = path.relative(__dirname, path.join(CATEGORIES_DIR, categoryHash, 'index.md'));
         content += `- [${category.name}](${relativePath})\n`;
     });
     fs.writeFileSync(OUTPUT_FILE, content, 'utf-8');
@@ -111,8 +138,8 @@ const main = async () => {
             const topics = extractTopics(categoryHtml);
 
             for (const topic of topics) {
-                const articleUrl = topic.link.startsWith('http') ? topic.link : `${BASE_URL}${topic.link}`;
-                topic.content = await extractArticleContent(articleUrl);
+                const topicUrl = topic.link.startsWith('http') ? topic.link : `${BASE_URL}${topic.link}`;
+                topic.articles = await extractArticles(topicUrl);
             }
 
             categoriesWithTopics.push({ name: category.name, topics });
