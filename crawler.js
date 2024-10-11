@@ -43,7 +43,10 @@ const extractCategories = (html) => {
     const categories = [];
     $('div.col-md-12.class-bar a').each((index, element) => {
         const category = $(element).attr('href');
-        categories.push({ name: $(element).text().trim(), url: category });
+        const categoryName = $(element).text().trim();
+        if (categoryName.toLowerCase() !== 'all') {
+            categories.push({ name: categoryName, url: category });
+        }
     });
     console.log('提取到的類別:', categories); // 添加這行來檢查提取到的類別
     return categories;
@@ -63,13 +66,20 @@ const extractTopics = (html) => {
 
 const saveTopics = (categoriesWithTopics) => {
     let content = '';
+    const uniqueTopics = new Set();
+
     categoriesWithTopics.forEach(category => {
         content += `## ${category.name}\n`;
         category.topics.forEach(topic => {
-            content += `- [${topic.title}](${topic.link})\n`;
+            const topicKey = `${topic.title}-${topic.link}`;
+            if (!uniqueTopics.has(topicKey)) {
+                uniqueTopics.add(topicKey);
+                content += `- [${topic.title}](${topic.link})\n`;
+            }
         });
         content += '\n';
     });
+
     fs.writeFileSync(OUTPUT_FILE, content, 'utf-8');
 };
 
