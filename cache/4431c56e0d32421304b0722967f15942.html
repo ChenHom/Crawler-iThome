@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+<title>Odoo 部署策略 :: 2024 iThome 鐵人賽</title>
+
+<meta name="description" content="我目前計劃使用 Odoo 作為某些系統的解決方案，但在與廠商合作導入之前，想先確立一套完整的部署策略。這系列文章將分享我如何從零開始搭建 Odoo 的開發和生產環..."/>
+<meta name="keywords" content="iT邦幫忙,iThome">
+<meta name="author" content="iThome">
+<meta property="og:site_name" content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"/>
+<meta property="og:url" content="https://ithelp.ithome.com.tw/users/20168935/ironman/8089"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Odoo 部署策略 :: 2024 iThome 鐵人賽"/>
+<meta property="og:image" content="https://ithelp.ithome.com.tw/storage/image/fbpic.jpg"/>
+<meta property="og:description" content="我目前計劃使用 Odoo 作為某些系統的解決方案，但在與廠商合作導入之前，想先確立一套完整的部署策略。這系列文章將分享我如何從零開始搭建 Odoo 的開發和生產環..."/>
+<meta property="fb:app_id" content="137875859607921" />
+
+<link rel="apple-touch-icon" sizes="57x57" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json">
+<link rel="mask-icon" href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/bootstrap.min.css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/sweetalert.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/style.css?202008271142">
+<!-- highlight -->
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/railscasts.css">
+<!-- end -->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--messenger css-->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6182VBHV8Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6182VBHV8Y');
+</script>
+            </head>
+
+<body>
+    <div class="header">
+    <div class="a970" align="center">
+        <script src="https://itadapi.ithome.com.tw/media/serve?type=B5&channel=ithome_index&encoding=Utf8"></script>
+    </div>
+    <div class="header__inner clearfix">
+        <h1 class="header__logo pull-left"><a href="/"><img src="https://ithelp.ithome.com.tw/storage/image/logo.svg" alt="iT邦幫忙" class="img-responsive"></a></h1>
+        <div class="header__promote">
+            <div class="a12word pull-right">
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T2&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T3&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T4&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+            </div>
+
+            <div class="a970 pull-right">
+                <script src="https://itadapi.ithome.com.tw/media/serve?type=B1&channel=ithome_forum&encoding=Utf8"></script>
+            </div>
+        </div>
+    </div>
+
+    <nav class="menu">
+        <div class="menu__bg">
+            <div class="menu__container clearfix">
+                
+                <h1 class="menu__logo">
+                    <a href="/" class="menu__logo-link"><img src="https://ithelp.ithome.com.tw/storage/image/nav_logo.svg"  alt="iT邦幫忙"></a>
+                </h1>
+
+                                
+                
+                <ul class="list-unstyled menu__left">
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/questions" class="menu__item-link  menu__item-link--pl">技術問答</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/articles?tab=tech" class="menu__item-link ">技術文章</a>
+                    </li>
+                    
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/articles?tab=job" class="menu__item-link  hidden-xs" >iT 徵才</a>
+                    </li>
+                    
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/tags" class="menu__item-link  hidden-xs" >Tag</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/talks" class="menu__item-link  hidden-xs" >聊天室</a>
+                    </li>
+                    <li class="menu__item menu__item--ironman">
+                        <a href="/2024ironman/" target="_blank" class="menu__item-link hidden-xs" >2024 鐵人賽</a>
+                    </li>
+                </ul>
+                
+
+                                    
+                    <ul class="list-unstyled menu__right">
+                        <li class="menu__item">
+                            <div id="searchDropdown" class="menu__search-btn">
+                                <span class="menu__search-toggle"></span>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a href="https://ithelp.ithome.com.tw/users/login" class="menu__item-link">登入/註冊</a>
+                        </li>
+                    </ul>
+                            </div>
+        </div>
+
+        
+        <div class="menu__dropform">
+            <div class="menu__container">
+                <form action="https://ithelp.ithome.com.tw/search" role="search" method="GET" class="clearfix">
+                    <input type="hidden" name="_token" value="wqiTpWqEhl6FdGpY0spws7oHh3nK7HSR7u1AvHgr">                    <div class="pull-left">
+                        <input name="search" type="text" class="menu__search-input" placeholder="搜尋主題、問題或人">
+
+                        <input type="radio" class="radio-input" name="tab" value="question" id="searchQA" checked/>
+                        <label for="searchQA" class="radio-label">問答</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="article" id="searchArticle"/>
+                        <label for="searchArticle" class="radio-label">文章</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="tag" id="searchTag"/>
+                        <label for="searchTag" class="radio-label">Tag</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="user" id="searchID"/>
+                        <label for="searchID" class="radio-label">邦友</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="ironman" id="searchIronman"/>
+                        <label for="searchIronman" class="radio-label">鐵人賽</label>
+                    </div>
+                    <button type="submit" class="btn menu__dropform-btn">搜尋</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="menu__mask"></div>
+</div>
+
+
+    
+                    
+        
+    <div class="container index-top">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="board">
+                    <div class="profile-header clearfix">
+    <div class="profile-header__avatar">
+        <img src="https://member.ithome.com.tw/avatars/197255?s=ithelp" class="profile-header__avatar-img"/>
+
+    </div>
+    
+
+    <div class="profile-header__content">
+        <div class="profile-header__name">
+            野足 <span class="profile-header__account">(wildfootw)</span>
+        </div>
+        <div class="profile-header__text">
+            iT邦新手 5 級 ‧ 點數 <a
+                    href="https://ithelp.ithome.com.tw/users/20168935/points">
+                111
+            </a>
+        </div>
+        <div class="profile-header__text">
+             
+        </div>
+    </div>
+    <div class="profile-header__right">
+        <div class="profile-header__statistic">
+            <div class="profile-header__view">
+                <div><span class="profile-header__view-num">727</span></div>
+                <div class="profile-header__view-text">累計瀏覽數</div>
+            </div>
+            <div class="profile-header__follow">
+                <a href="https://ithelp.ithome.com.tw/users/20168935/traced" class="profile-header__follow-link">
+                    <div><span class="profile-header__follow-num">1</span>人</div>
+                    <div class="profile-header__follow-text">在追蹤</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="pull-right">
+                            <div class="profile-header__btngroup">
+                    <a href="https://ithelp.ithome.com.tw/messages/getGroup/20168935"
+                       class="btn btn-border-main profile-header__btn--left">
+                        <i class="fa fa-envelope-o fa-fw profile-side__icon"></i>站內簡訊
+                    </a>
+                                            <a href="https://ithelp.ithome.com.tw/users/login" class="btn btn-trace">
+                            <i class="fa fa-heart-o fa-fw fa--spacing"></i>追蹤
+                        </a>
+                                    </div>
+                    </div>
+    </div>
+</div>
+<div class="profile-nav">
+    <ul class="list-inline profile-nav__list">
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="profile-nav__link">
+                <span class="profile-nav__icon"><i class="fa fa-newspaper-o fa-fw"></i></span> 個人背景
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20168935/questions" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>發問
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20168935/articles" class="profile-nav__link">
+                <span class="profile-nav__num">26</span>文章
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20168935/answers" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>回答
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20168935/invited" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>邀請回答
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20168935/best_answers" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>最佳解答
+            </a>
+        </li>
+        <li class="profile-nav__item profile-nav__item--pad">
+            <div class="dropdown">
+              <a id="profile-nav" data-target="#" href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="profile-nav__link">
+                <span class="profile-nav__icon"><i class="fa fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>其他
+              </a>
+              <ul class="dropdown-menu profile-nav__dropdown-menu" aria-labelledby="profile-nav">
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/ironman" class="profile-side__text">鐵人檔案</a>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/collections/questions" class="profile-side__text">收藏的問題</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/collections/articles" class="profile-side__text">收藏的文章</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/questions" class="profile-side__text">追蹤的問題</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/articles" class="profile-side__text">追蹤的文章</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/tags" class="profile-side__text">追蹤的tag</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/users" class="profile-side__text">追蹤的邦友</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/questions" class="profile-side__text">Like的發問</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/answers" class="profile-side__text">Like的回答</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/articles" class="profile-side__text">Like的文章</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/responses" class="profile-side__text">Like的留言</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/comments/questions" class="profile-side__text">問答討論</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/comments/answers" class="profile-side__text">問答回應</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/responses" class="profile-side__text">文章留言</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/comments/responses" class="profile-side__text">文章回應</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/talks" class="profile-side__text">聊天室</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20168935/collections/ironman" class="profile-side__text">訂閱列表</a></li>
+              </ul>
+            </div>
+        </li>
+    </ul>
+</div>                </div>
+                <div class="board leftside profile-main">
+                        
+    <h2 class="ir-profile-header">
+        
+        <img src="https://ithelp.ithome.com.tw/storage/image/fight.svg" alt="" class="">鐵人檔案
+    </h2>
+    <div class="ir-profile-content">
+        <div class="ir-profile-years clearfix">
+            <div class="ir-profile-years__title">
+                2024 iThome 鐵人賽
+            </div>
+            <a href="https://ithelp.ithome.com.tw/users/20168935/ironman" class="ir-profile-back">回列表</a>
+        </div>
+
+        <div class="ir-profile-series ">
+            
+                                            <a href="https://ithelp.ithome.com.tw/2024ironman/odoo" class="group__badge group__badge--odoo ir-profile-list__badge">
+                    Odoo
+                </a>
+                        <h3 class="qa-list__title qa-list__title--ironman">
+                Odoo 部署策略<span> 系列</span>
+            </h3>
+            <p class="qa-list__description">我目前計劃使用 Odoo 作為某些系統的解決方案，但在與廠商合作導入之前，想先確立一套完整的部署策略。這系列文章將分享我如何從零開始搭建 Odoo 的開發和生產環境，強調安全性、版控協作、環境一致性，以及適應未來系統導入的靈活性。<br />
+<br />
+整個過程涵蓋了如何透過 Docker 和 git 進行模組化部署，並確保開發者能輕鬆複製環境；如何妥善管理版本控制，確保各模組和依賴包版本一致；以及如何設置外部使用者的權限限制，同時不洩露任何憑證等敏感資訊。<br />
+<br />
+在比賽截止的前十分鐘，我才決定要撰寫這系列文章，並且此時我的環境尚未完成。我希望能在接下來的三十天內，同時完成策略與文章的撰寫。</p>
+            <div class="text-right"><button id="read_more" class="btn btn-qa-list-open">展開 
+            <i class="arrow-down-i fa fa-angle-down fa-3x" aria-hidden="true"></i>
+            </button><button id="read_less" class="btn btn-secondary btn-qa-list-close" style="display: none;">收起
+            <i class="arrow-down-i fa fa-angle-up fa-3x" aria-hidden="true"></i>
+            </button></div>
+            <div class="qa-list__info qa-list__info--ironman subscription-group">
+
+                <span >
+                                                                        參賽天數 26 天 ｜
+                                                            </span>
+                    <span>共 26 篇文章 ｜</span>
+                    <span class="subscription-amount">1</span> 人訂閱
+                                        <a href="https://ithelp.ithome.com.tw/users/login" class="ir-profile-subscription subscription-btn">
+                            <i class="fa fa-bookmark-o fa-fw" aria-hidden="true"></i>訂閱系列文
+                        </a>
+                    
+                <a href="https://ithelp.ithome.com.tw/rss/series/8089" class="btn-rss btn-no-border" target="_blank">
+                    <i class="fa fa-rss fa-fw" aria-hidden="true"></i>RSS系列文
+                </a>
+
+                
+                            </div>
+
+
+        </div>
+<!-- articles -->
+                        <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">117</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    1
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10351644
+                                                        " class="qa-list__title-link">
+                                                            odoo 部署前的策略思考：從環境設置到協作方式
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        我認識 odoo 是從碰到了某家臺灣蠻大的但又很難用的 ERP 開始，算算觀望了三年多，最近終於覺得受不了原本的 ERP，該行動了。
+剛好社群有人辦了 odoo...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-15 23:58:46" class="qa-list__info-time">2024-09-15</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">148</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    2
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10351696
+                                                        " class="qa-list__title-link">
+                                                            模組、整合與部署：三層 Git Repo 結構的設計思考
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        三層結構的思考
+在啟動專案時，我的第一個步驟是設計適當的 Git repository 及文件結構，為文件結構和命名方式找到最佳方案，蠻愉悅的XXD。以下是我逐...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-16 02:55:53" class="qa-list__info-time">2024-09-16</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">55</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    3
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10352492
+                                                        " class="qa-list__title-link">
+                                                            分析 odoo 官方安裝方法：從原始碼、套件管理或 Docker 安裝
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        分析 odoo 官方提供的安裝方式
+在開始深入編寫我們的 Dockerfile 之前，我們先來分析 odoo 官方提供的三種安裝方式，了解它們的運作機制：...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-17 00:05:35" class="qa-list__info-time">2024-09-17</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">67</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    4
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10352768
+                                                        " class="qa-list__title-link">
+                                                            從官方 Dockerfile 開始調整：以原始碼安裝取代套件安裝
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        在開始調整我們的 Dockerfile 之前，先附上官方的 Dockerfile 網址供大家參考：odoo/docker/17.0/Dockerfile
+
+在一...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-18 23:42:18" class="qa-list__info-time">2024-09-18</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">49</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    5
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10354017
+                                                        " class="qa-list__title-link">
+                                                            odoo 依賴套件詳解：打造穩定的 Docker 環境
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        原本不打算特別寫一篇來講解依賴套件的部分，但在實際操作中踩到了一些問題，經過深入研究後，覺得還是值得分享這段經驗。
+這個問題源自於第二篇提到的內容。我最初計畫使...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-19 23:05:18" class="qa-list__info-time">2024-09-19</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">62</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    6
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10354595
+                                                        " class="qa-list__title-link">
+                                                            odoo Docker 的自訂啟動：分析官方 entrypoint.sh
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        其實上一篇改好的 Dockerfile 已經滿足我們的最低需求了，但是在我們把它跑起來之前，還需要理解 entrypoint.sh 的設計，才能更好地掌握它的使...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-20 00:32:01" class="qa-list__info-time">2024-09-20</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">71</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    7
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10355095
+                                                        " class="qa-list__title-link">
+                                                            docker-compose 入門：同步啟動 odoo 與 PostgreSQL
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        這一章，我們將介紹如何使用 docker-compose 來同步啟動 odoo 和 PostgreSQL。需要注意的是，這次的 docker-compose.y...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-21 17:39:18" class="qa-list__info-time">2024-09-21</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">118</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    8
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10355812
+                                                        " class="qa-list__title-link">
+                                                            從網路設計到 docker-compose：搭建 odoo 反向代理的第一步
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        什麼是反向代理（Reverse Proxy）？
+反向代理是一種伺服器，它位於客戶端與應用伺服器（z.B. odoo）之間，負責將客戶端的請求轉發到內部的應用伺服...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-22 12:51:10" class="qa-list__info-time">2024-09-22</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">57</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    9
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10356257
+                                                        " class="qa-list__title-link">
+                                                            為 odoo 建立 Nginx 反向代理第二步：nginx.conf 設定實作
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        不多廢話，今天是 nginx.conf 的設定內容，大部分的全域設定是參考網路上常見的範例，我目前還沒有進行微調，主要的重點是 resolver 127.0.0...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-23 00:17:00" class="qa-list__info-time">2024-09-23</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">116</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    10
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10356279
+                                                        " class="qa-list__title-link">
+                                                            流量加密與反向代理第三步：介紹 HTTPS、CA 與 SSL 憑證
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        有時候，當你在瀏覽某些網站時，瀏覽器可能會彈出「您的連線不是私人連線」的警告，並提供一個「進階」選項。點擊後，你可能會看到「繼續前往（不安全）」的提示。這到底代...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-24 01:07:18" class="qa-list__info-time">2024-09-24</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20168935/profile" class="qa-list__info-link">野足
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                </div>
+        <div class="profile-pagination">
+            <ul class="pager">
+        
+                    <li class="disabled"><span>上一頁</span></li>
+        
+        
+                    <li><a href="https://ithelp.ithome.com.tw/users/20168935/ironman/8089?page=2" rel="next">下一頁</a></li>
+            </ul>
+
+        </div>
+                </div>
+                <div class="rightside profile-side">
+                    <div class="board profile-side__box profile-side__box--ironman">
+    <div class="profile-side__title">
+        <a href="https://ithelp.ithome.com.tw/users/20168935/ironman"><img src="https://ithelp.ithome.com.tw/storage/image/fight.svg" alt="" class="">野足的鐵人檔案</a>
+    </div>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-star-o fa-fw profile-side__icon"></i>野足的收藏
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/collections/questions" class="profile-side__text">收藏的問題</a>
+        </li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/collections/articles" class="profile-side__text">收藏的文章</a>
+        </li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-heart-o fa-fw profile-side__icon"></i>野足的追蹤
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/questions" class="profile-side__text">追蹤的問題</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/articles" class="profile-side__text">追蹤的文章</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/tags" class="profile-side__text">追蹤的tag</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/traces/users" class="profile-side__text">追蹤的邦友</a></li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-thumbs-o-up fa-fw profile-side__icon"></i>野足的Like
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/questions" class="profile-side__text">Like的發問</a>
+        </li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/answers" class="profile-side__text">Like的回答</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/articles" class="profile-side__text">Like的文章</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/likes/responses" class="profile-side__text">Like的留言</a>
+        </li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-file-text-o fa-fw profile-side__icon"></i>野足的紀錄
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/comments/questions" class="profile-side__text">問答討論</a>
+        </li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/comments/answers" class="profile-side__text">問答回應</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/responses" class="profile-side__text">文章留言</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/comments/responses" class="profile-side__text">文章回應</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20168935/talks" class="profile-side__text">聊天室</a></li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <a href="https://ithelp.ithome.com.tw/users/20168935/collections/ironman"><i class="fa fa-bookmark-o fa-fw profile-side__icon" aria-hidden="true"></i>野足的訂閱列表</a>
+    </div>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title profile-side__title--blockade">
+                    <button class="blacklist_btn" data-id="20168935" data-nickname="野足">
+                <i class="fa fa-user-times fa-fw profile-side__icon"></i>
+                <span>
+                                    封鎖 野足
+                </span>
+            </button>
+            </div>
+</div>
+<div class="profile-side__ad">
+    <script src="https://itadapi.ithome.com.tw/media/serve?type=B3&channel=ithome_forum&encoding=Utf8"></script>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="a970">
+                    <script src="https://itadapi.ithome.com.tw/media/serve?type=B1&channel=ithome_forum&encoding=Utf8"></script>
+                </div>
+                <ul class="list-inline footer__menu">
+                    <li class="footer__item">電週文化事業版權所有、轉載必究 | Copyright © <a href="https://www.ithome.com.tw/" target="_blank" class="footer__link">iThome</a></li>
+                    <li><a href="https://www.ithome.com.tw/aboutus/" target="_blank" class="footer__link">刊登廣告</a></li>
+                    <li><a href="https://www.ithome.com.tw/aboutus/" target="_blank" class="footer__link">授權服務</a></li>
+                    <li><a href="mailto:ithelp@mail.ithome.com.tw" class="footer__link">服務信箱</a></li>
+                    <li><a href="https://www.ithome.com.tw/terms" target="_blank" class="footer__link">隱私權聲明與會員使用條款</a></li>
+                    <li><a href="https://ithelp.ithome.com.tw/guide" class="footer__link">iT邦幫忙使用說明</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://ithelp.ithome.com.tw/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.4.2/js/messenger.min.js"></script>
+<script>
+    Messenger.options = {
+        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left',
+        theme: 'block'
+    };
+
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    window.Notification.TOKEN = getCookie("_token");
+</script>
+<script>
+    $(function(){
+        $.ajaxPrefilter(function(options, originalOptions, jqXHR){
+            if (options.type.toLowerCase() !== "get" && !options.beforeSend) {
+                options.beforeSend = function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-TOKEN', 'wqiTpWqEhl6FdGpY0spws7oHh3nK7HSR7u1AvHgr');
+                }
+            }
+        });
+    });
+</script>
+<script src="https://ithelp.ithome.com.tw/js/lib/vue.min.js"></script>
+<script src="https://ithelp.ithome.com.tw/js/lib/sweetalert.min.js"></script>
+<script src="https://ithelp.ithome.com.tw/js/event.js?20180530"></script>
+<script src="https://ithelp.ithome.com.tw/lib/select2/js/select2.full.min.js"></script>
+
+<script src="https://ithelp.ithome.com.tw/js/ImgPreview.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var self = this;
+    const itPlusVideo = new Vue({
+        el: '#it_plus_video',
+        data: {
+            items: [],
+        },
+        created() {
+            this.fetchData();
+        },
+        methods: {
+            fetchData() {
+                axios.get('/api/itplus/sidebar')
+                        .then(response => {
+                            this.items = response.data.data;
+                        })
+                        .catch(error => {
+                            console.error("error!", error);
+                        });
+//                const cacheKey = 'cachedData';
+//                const cachedDataString = localStorage.getItem(cacheKey);
+//                const cachedData = JSON.parse(cachedDataString);
+//
+//                // 檢查緩存數據是否存在並且未過期
+//                if (cachedData && Date.now() - cachedData.timestamp < 5 * 60 * 1000) {
+//                    // 使用緩存數據
+//                    this.items = cachedData.data;
+//                } else {
+//                    // 獲取最新數據
+//                    axios.get('/api/itplus/sidebar')
+//                            .then(response => {
+//                                console.log(response.data.cache);
+//                                this.items = response.data.data;
+//
+//                                // 將獲取到的數據存儲在本地存儲中
+//                                const newData = { data: response.data.data, timestamp: Date.now() };
+//                                localStorage.setItem(cacheKey, JSON.stringify(newData));
+//                            })
+//                            .catch(error => {
+//                                console.error("error!", error);
+//                            });
+//                }
+            },
+            formatDate(time) {
+                const parts = time.split(':');	//	移除":"符號
+                const hours = parseInt(parts[0]);
+                const minutes = parseInt(parts[1]);
+
+                const totalMinutes = hours * 60 + minutes;
+
+                return totalMinutes + " 分";
+            },
+        }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var self = this;
+    const itplusPopulaRecommendationsContent = new Vue({
+        el: '#itplusPopulaRecommendationsContent',
+        data: {
+            items: []
+        },
+        created() {
+            this.fetchData();
+        },
+        methods: {
+            fetchData() {
+                axios.get('/api/itplus/bottom')
+                        .then(response => {
+                            this.items = response.data.data;
+                            console.log(response.data.data);
+                        })
+                        .catch(error => {
+                            console.error("error!", error);
+                        });
+            },
+            formatDate(time) {
+                const parts = time.split(':');	//	移除":"符號
+                const hours = parseInt(parts[0]);
+                const minutes = parseInt(parts[1]);
+
+                const totalMinutes = hours * 60 + minutes;
+
+                return totalMinutes + " 分";
+            },
+        }
+    });
+</script>
+
+<div class="modal fade" id="AtUser" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">標記使用者</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="invite_person" class="control-label">輸入對方的帳號或暱稱</label>
+                    <input type="text" class="form-control modal-input" id="invite_person" v-model="result_text" debounce="500">
+                    <div id="editor_tagged_ids"></div>
+                </div>
+                <ul class="list-unstyled invitation">
+                    <li style="text-align: center">
+                        <template v-if="!!result_text && !result_list.length && is_loading">
+                            Loading
+                        </template>
+                        <template v-if="!!result_text && !result_list.length && !is_loading">
+                            找不到結果。
+                        </template>
+                    </li>
+                    <li class="invitation-list" v-for="result in result_list">
+                        <img v-if="result && result.center_id" :src="'https://member.ithome.com.tw/avatars/' + result.center_id + '?s=ithelp'" style="float: left; margin-left: 10px; width: 48px; height: 48px;">
+                        <div class="invitation-list__content clearfix">
+                            <a class="btn btn-main invitation-list__btn" @click="AtUserByID(result.label, result.id)">標記</a>
+                            <div><a href="#" class="invitation-list__name">{{ result.label }}</a></div>
+                            <div><a href="#" class="invitation-list__account">{{ result.account }}</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-main" data-dismiss="modal">關閉</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>hljs.highlightAll()</script>
+    </body>
+
+</html>

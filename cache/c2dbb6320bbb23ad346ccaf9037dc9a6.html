@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+<title>oracle資料庫實作學習 :: 2024 iThome 鐵人賽</title>
+
+<meta name="description" content="透過實作oracle資料庫練習，來精進自身對於資料庫的使用及增加語法的熟悉度，並使自身更加認識這項工具，且分享給其他人。"/>
+<meta name="keywords" content="iT邦幫忙,iThome">
+<meta name="author" content="iThome">
+<meta property="og:site_name" content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"/>
+<meta property="og:url" content="https://ithelp.ithome.com.tw/users/20169221/ironman/7797"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="oracle資料庫實作學習 :: 2024 iThome 鐵人賽"/>
+<meta property="og:image" content="https://ithelp.ithome.com.tw/storage/image/fbpic.jpg"/>
+<meta property="og:description" content="透過實作oracle資料庫練習，來精進自身對於資料庫的使用及增加語法的熟悉度，並使自身更加認識這項工具，且分享給其他人。"/>
+<meta property="fb:app_id" content="137875859607921" />
+
+<link rel="apple-touch-icon" sizes="57x57" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json">
+<link rel="mask-icon" href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/bootstrap.min.css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/sweetalert.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/style.css?202008271142">
+<!-- highlight -->
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/railscasts.css">
+<!-- end -->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--messenger css-->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6182VBHV8Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6182VBHV8Y');
+</script>
+            </head>
+
+<body>
+    <div class="header">
+    <div class="a970" align="center">
+        <script src="https://itadapi.ithome.com.tw/media/serve?type=B5&channel=ithome_index&encoding=Utf8"></script>
+    </div>
+    <div class="header__inner clearfix">
+        <h1 class="header__logo pull-left"><a href="/"><img src="https://ithelp.ithome.com.tw/storage/image/logo.svg" alt="iT邦幫忙" class="img-responsive"></a></h1>
+        <div class="header__promote">
+            <div class="a12word pull-right">
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T2&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T3&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T4&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+            </div>
+
+            <div class="a970 pull-right">
+                <script src="https://itadapi.ithome.com.tw/media/serve?type=B1&channel=ithome_forum&encoding=Utf8"></script>
+            </div>
+        </div>
+    </div>
+
+    <nav class="menu">
+        <div class="menu__bg">
+            <div class="menu__container clearfix">
+                
+                <h1 class="menu__logo">
+                    <a href="/" class="menu__logo-link"><img src="https://ithelp.ithome.com.tw/storage/image/nav_logo.svg"  alt="iT邦幫忙"></a>
+                </h1>
+
+                                
+                
+                <ul class="list-unstyled menu__left">
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/questions" class="menu__item-link  menu__item-link--pl">技術問答</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/articles?tab=tech" class="menu__item-link ">技術文章</a>
+                    </li>
+                    
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/articles?tab=job" class="menu__item-link  hidden-xs" >iT 徵才</a>
+                    </li>
+                    
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/tags" class="menu__item-link  hidden-xs" >Tag</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="https://ithelp.ithome.com.tw/talks" class="menu__item-link  hidden-xs" >聊天室</a>
+                    </li>
+                    <li class="menu__item menu__item--ironman">
+                        <a href="/2024ironman/" target="_blank" class="menu__item-link hidden-xs" >2024 鐵人賽</a>
+                    </li>
+                </ul>
+                
+
+                                    
+                    <ul class="list-unstyled menu__right">
+                        <li class="menu__item">
+                            <div id="searchDropdown" class="menu__search-btn">
+                                <span class="menu__search-toggle"></span>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a href="https://ithelp.ithome.com.tw/users/login" class="menu__item-link">登入/註冊</a>
+                        </li>
+                    </ul>
+                            </div>
+        </div>
+
+        
+        <div class="menu__dropform">
+            <div class="menu__container">
+                <form action="https://ithelp.ithome.com.tw/search" role="search" method="GET" class="clearfix">
+                    <input type="hidden" name="_token" value="Q9vFUAlNF3zIG36QaFSWdbreiVPJMqTjtxstePKB">                    <div class="pull-left">
+                        <input name="search" type="text" class="menu__search-input" placeholder="搜尋主題、問題或人">
+
+                        <input type="radio" class="radio-input" name="tab" value="question" id="searchQA" checked/>
+                        <label for="searchQA" class="radio-label">問答</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="article" id="searchArticle"/>
+                        <label for="searchArticle" class="radio-label">文章</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="tag" id="searchTag"/>
+                        <label for="searchTag" class="radio-label">Tag</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="user" id="searchID"/>
+                        <label for="searchID" class="radio-label">邦友</label>
+
+                        <input type="radio" class="radio-input" name="tab" value="ironman" id="searchIronman"/>
+                        <label for="searchIronman" class="radio-label">鐵人賽</label>
+                    </div>
+                    <button type="submit" class="btn menu__dropform-btn">搜尋</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="menu__mask"></div>
+</div>
+
+
+    
+                    
+        
+    <div class="container index-top">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="board">
+                    <div class="profile-header clearfix">
+    <div class="profile-header__avatar">
+        <img src="https://member.ithome.com.tw/avatars/198933?s=ithelp" class="profile-header__avatar-img"/>
+
+    </div>
+    
+
+    <div class="profile-header__content">
+        <div class="profile-header__name">
+            gordon92182253 <span class="profile-header__account">(gordon92182253)</span>
+        </div>
+        <div class="profile-header__text">
+            iT邦見習生  ‧ 點數 <a
+                    href="https://ithelp.ithome.com.tw/users/20169221/points">
+                116
+            </a>
+        </div>
+        <div class="profile-header__text">
+             
+        </div>
+    </div>
+    <div class="profile-header__right">
+        <div class="profile-header__statistic">
+            <div class="profile-header__view">
+                <div><span class="profile-header__view-num">573</span></div>
+                <div class="profile-header__view-text">累計瀏覽數</div>
+            </div>
+            <div class="profile-header__follow">
+                <a href="https://ithelp.ithome.com.tw/users/20169221/traced" class="profile-header__follow-link">
+                    <div><span class="profile-header__follow-num">0</span>人</div>
+                    <div class="profile-header__follow-text">在追蹤</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="pull-right">
+                            <div class="profile-header__btngroup">
+                    <a href="https://ithelp.ithome.com.tw/messages/getGroup/20169221"
+                       class="btn btn-border-main profile-header__btn--left">
+                        <i class="fa fa-envelope-o fa-fw profile-side__icon"></i>站內簡訊
+                    </a>
+                                            <a href="https://ithelp.ithome.com.tw/users/login" class="btn btn-trace">
+                            <i class="fa fa-heart-o fa-fw fa--spacing"></i>追蹤
+                        </a>
+                                    </div>
+                    </div>
+    </div>
+</div>
+<div class="profile-nav">
+    <ul class="list-inline profile-nav__list">
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="profile-nav__link">
+                <span class="profile-nav__icon"><i class="fa fa-newspaper-o fa-fw"></i></span> 個人背景
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20169221/questions" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>發問
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20169221/articles" class="profile-nav__link">
+                <span class="profile-nav__num">28</span>文章
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20169221/answers" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>回答
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20169221/invited" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>邀請回答
+            </a>
+        </li>
+        <li class="profile-nav__item">
+            <a href="https://ithelp.ithome.com.tw/users/20169221/best_answers" class="profile-nav__link">
+                <span class="profile-nav__num">0</span>最佳解答
+            </a>
+        </li>
+        <li class="profile-nav__item profile-nav__item--pad">
+            <div class="dropdown">
+              <a id="profile-nav" data-target="#" href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="profile-nav__link">
+                <span class="profile-nav__icon"><i class="fa fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>其他
+              </a>
+              <ul class="dropdown-menu profile-nav__dropdown-menu" aria-labelledby="profile-nav">
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/ironman" class="profile-side__text">鐵人檔案</a>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/collections/questions" class="profile-side__text">收藏的問題</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/collections/articles" class="profile-side__text">收藏的文章</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/questions" class="profile-side__text">追蹤的問題</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/articles" class="profile-side__text">追蹤的文章</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/tags" class="profile-side__text">追蹤的tag</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/users" class="profile-side__text">追蹤的邦友</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/questions" class="profile-side__text">Like的發問</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/answers" class="profile-side__text">Like的回答</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/articles" class="profile-side__text">Like的文章</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/responses" class="profile-side__text">Like的留言</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/comments/questions" class="profile-side__text">問答討論</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/comments/answers" class="profile-side__text">問答回應</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/responses" class="profile-side__text">文章留言</a>
+                </li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/comments/responses" class="profile-side__text">文章回應</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/talks" class="profile-side__text">聊天室</a></li>
+                <li><a href="https://ithelp.ithome.com.tw/users/20169221/collections/ironman" class="profile-side__text">訂閱列表</a></li>
+              </ul>
+            </div>
+        </li>
+    </ul>
+</div>                </div>
+                <div class="board leftside profile-main">
+                        
+    <h2 class="ir-profile-header">
+        
+        <img src="https://ithelp.ithome.com.tw/storage/image/fight.svg" alt="" class="">鐵人檔案
+    </h2>
+    <div class="ir-profile-content">
+        <div class="ir-profile-years clearfix">
+            <div class="ir-profile-years__title">
+                2024 iThome 鐵人賽
+            </div>
+            <a href="https://ithelp.ithome.com.tw/users/20169221/ironman" class="ir-profile-back">回列表</a>
+        </div>
+
+        <div class="ir-profile-series ">
+            
+                                            <a href="https://ithelp.ithome.com.tw/2024ironman/it-self-taught" class="group__badge group__badge--it-self-taught ir-profile-list__badge">
+                    佛心分享-IT 人自學之術
+                </a>
+                        <h3 class="qa-list__title qa-list__title--ironman">
+                oracle資料庫實作學習<span> 系列</span>
+            </h3>
+            <p class="qa-list__description">透過實作oracle資料庫練習，來精進自身對於資料庫的使用及增加語法的熟悉度，並使自身更加認識這項工具，且分享給其他人。</p>
+            <div class="text-right"><button id="read_more" class="btn btn-qa-list-open">展開 
+            <i class="arrow-down-i fa fa-angle-down fa-3x" aria-hidden="true"></i>
+            </button><button id="read_less" class="btn btn-secondary btn-qa-list-close" style="display: none;">收起
+            <i class="arrow-down-i fa fa-angle-up fa-3x" aria-hidden="true"></i>
+            </button></div>
+            <div class="qa-list__info qa-list__info--ironman subscription-group">
+
+                <span >
+                                                                        參賽天數 28 天 ｜
+                                                            </span>
+                    <span>共 28 篇文章 ｜</span>
+                    <span class="subscription-amount">0</span> 人訂閱
+                                        <a href="https://ithelp.ithome.com.tw/users/login" class="ir-profile-subscription subscription-btn">
+                            <i class="fa fa-bookmark-o fa-fw" aria-hidden="true"></i>訂閱系列文
+                        </a>
+                    
+                <a href="https://ithelp.ithome.com.tw/rss/series/7797" class="btn-rss btn-no-border" target="_blank">
+                    <i class="fa fa-rss fa-fw" aria-hidden="true"></i>RSS系列文
+                </a>
+
+                
+                            </div>
+
+
+        </div>
+<!-- articles -->
+                        <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">98</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    1
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10350190
+                                                        " class="qa-list__title-link">
+                                                            DAY1前言
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        
+現今是一個資訊量爆炸的時代，人們在一天的生活中會接觸到成千上萬的資料。而這些資料就像是零散的碎片，未經整理時我們不會特別注意，然而把這些碎片進行蒐集、整理，整...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-14 20:46:00" class="qa-list__info-time">2024-09-14</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">60</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    2
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10351245
+                                                        " class="qa-list__title-link">
+                                                            DAY2關聯模型、關聯式資料庫及關聯式資料庫管理系統
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        
+關聯模型（Relational Model）是一種資料組織方式，它將資料表示為一組由行與列組成的表格，稱為「關聯」（relation），每個關聯包含多個屬性（...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-15 19:07:34" class="qa-list__info-time">2024-09-15</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">88</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    3
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10352097
+                                                        " class="qa-list__title-link">
+                                                            DAY3 Oracle資料庫的基礎架構
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        Oracle資料庫的基礎架構分為物理結構和邏輯結構。
+
+物理結構包括資料檔案（Data Files）、控制檔案（Control Files）和重做日誌檔案（Re...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-16 15:11:43" class="qa-list__info-time">2024-09-16</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">83</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    4
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10352756
+                                                        " class="qa-list__title-link">
+                                                            DAY4環境安裝
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        因為要使用oracle的資料庫來進行練習，所以要先準備下載下面三個軟體:
+
+Oracle Database
+SQL Developer
+DataModeler...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-17 13:46:08" class="qa-list__info-time">2024-09-17</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">51</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    5
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10353370
+                                                        " class="qa-list__title-link">
+                                                            DAY5繪製實體關聯圖
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        今天將會使用DataModeler採順向工程的方式來繪製實體關聯圖(以表格OE.INVENTORIES與OE.WAREHOUSES之間的關係為例)，並匯出DDL...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-18 09:31:43" class="qa-list__info-time">2024-09-18</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">38</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    6
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10354184
+                                                        " class="qa-list__title-link">
+                                                            DAY6 基本語法SELECT
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        今天要學習使用最基礎的ORACLE資料庫的SQL語句SELECT，SELECT代表了檢索資料表之中的資料。而除了檢索資料外，只要是有關於資料的處理、運算、表格合...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-19 12:12:14" class="qa-list__info-time">2024-09-19</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">38</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    7
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10354804
+                                                        " class="qa-list__title-link">
+                                                            DAY7搜尋特定資料
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        由於儲存在資料庫裡的資料非常龐大，所以如果只使用SELECT來檢索資料，會將我們所查詢的項目全部列出來，然而有時候我們只想搜尋某個範圍內的資料時，如果還要自己一...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-20 09:29:52" class="qa-list__info-time">2024-09-20</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">41</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    8
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10355577
+                                                        " class="qa-list__title-link">
+                                                            DAY8搜尋特定資料2
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        上次我們練習了如何檢索我們想要的資料，也可以透過給定範圍或是提供資料特徵的方式來搜尋特定資料，而這次我們為了增加與使用者之間的互動性，也使我們在檢索資料上擁有更...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-21 15:34:39" class="qa-list__info-time">2024-09-21</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">63</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    9
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10356403
+                                                        " class="qa-list__title-link">
+                                                            DAY9數值函數
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        除了透過語法來進行資料查詢外，我們也可以透過單列函數來增加查詢的靈活性，使用函數查詢主要可以完成資料的計算，修改個別資料項目，操作資料列的輸出，格式化日期還有數...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-22 20:59:57" class="qa-list__info-time">2024-09-22</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                    <div class="qa-list profile-list ir-profile-list">
+                <div class="profile-list__condition">
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">Like</span></a>
+                    <a class="qa-condition ">
+                        <span class="qa-condition__count">0</span>
+                        <span class="qa-condition__text">留言</span>
+                    </a>
+                    <a class="qa-condition   qa-condition--change ">
+                        <span class="qa-condition__count">37</span>
+                        <span class="qa-condition__text">瀏覽</span>
+                    </a>
+                </div>
+                <div class="profile-list__content">
+
+
+                    
+                    <div class="ir-qa-list__status">
+                        
+                                                    <span class="ir-qa-list__days ir-qa-list__days--profile ">DAY
+                                                                    10
+                                                            </span>
+                                            </div>
+
+                    <h3 class="qa-list__title">
+                                               
+                        <a href="
+                                                https://ithelp.ithome.com.tw/articles/10356855
+                                                        " class="qa-list__title-link">
+                                                            DAY10字符函數
+                                                    </a>
+                    </h3>
+                    <p class="qa-list__desc">
+                        在學習了數值函數之後，接下來就要學習與數值函數相對的字符函數，為針對文字來進行搜尋操作的函數，而字符函數則分成大小寫轉換函數以及字符處理函數。大小寫轉換函數:一...
+                    </p>
+                    <div class="qa-list__info">
+                        <a title="2024-09-23 14:29:05" class="qa-list__info-time">2024-09-23</a> ‧ 由
+                                                    <a href="https://ithelp.ithome.com.tw/users/20169221/profile" class="qa-list__info-link">gordon92182253
+                            </a>
+                                                分享
+
+                    </div>
+                </div>
+
+            </div>
+                </div>
+        <div class="profile-pagination">
+            <ul class="pager">
+        
+                    <li class="disabled"><span>上一頁</span></li>
+        
+        
+                    <li><a href="https://ithelp.ithome.com.tw/users/20169221/ironman/7797?page=2" rel="next">下一頁</a></li>
+            </ul>
+
+        </div>
+                </div>
+                <div class="rightside profile-side">
+                    <div class="board profile-side__box profile-side__box--ironman">
+    <div class="profile-side__title">
+        <a href="https://ithelp.ithome.com.tw/users/20169221/ironman"><img src="https://ithelp.ithome.com.tw/storage/image/fight.svg" alt="" class="">gordon92182253的鐵人檔案</a>
+    </div>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-star-o fa-fw profile-side__icon"></i>gordon92182253的收藏
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/collections/questions" class="profile-side__text">收藏的問題</a>
+        </li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/collections/articles" class="profile-side__text">收藏的文章</a>
+        </li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-heart-o fa-fw profile-side__icon"></i>gordon92182253的追蹤
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/questions" class="profile-side__text">追蹤的問題</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/articles" class="profile-side__text">追蹤的文章</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/tags" class="profile-side__text">追蹤的tag</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/traces/users" class="profile-side__text">追蹤的邦友</a></li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-thumbs-o-up fa-fw profile-side__icon"></i>gordon92182253的Like
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/questions" class="profile-side__text">Like的發問</a>
+        </li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/answers" class="profile-side__text">Like的回答</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/articles" class="profile-side__text">Like的文章</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/likes/responses" class="profile-side__text">Like的留言</a>
+        </li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <i class="fa fa-file-text-o fa-fw profile-side__icon"></i>gordon92182253的紀錄
+        <span class="profile-side__down"><i class="fa fa-angle-down fa-fw"></i></span>
+    </div>
+    <ul class="profile-side__list">
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/comments/questions" class="profile-side__text">問答討論</a>
+        </li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/comments/answers" class="profile-side__text">問答回應</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/responses" class="profile-side__text">文章留言</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/comments/responses" class="profile-side__text">文章回應</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/users/20169221/talks" class="profile-side__text">聊天室</a></li>
+    </ul>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title">
+        <a href="https://ithelp.ithome.com.tw/users/20169221/collections/ironman"><i class="fa fa-bookmark-o fa-fw profile-side__icon" aria-hidden="true"></i>gordon92182253的訂閱列表</a>
+    </div>
+</div>
+<div class="board profile-side__box">
+    <div class="profile-side__title profile-side__title--blockade">
+                    <button class="blacklist_btn" data-id="20169221" data-nickname="gordon92182253">
+                <i class="fa fa-user-times fa-fw profile-side__icon"></i>
+                <span>
+                                    封鎖 gordon92182253
+                </span>
+            </button>
+            </div>
+</div>
+<div class="profile-side__ad">
+    <script src="https://itadapi.ithome.com.tw/media/serve?type=B3&channel=ithome_forum&encoding=Utf8"></script>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="a970">
+                    <script src="https://itadapi.ithome.com.tw/media/serve?type=B1&channel=ithome_forum&encoding=Utf8"></script>
+                </div>
+                <ul class="list-inline footer__menu">
+                    <li class="footer__item">電週文化事業版權所有、轉載必究 | Copyright © <a href="https://www.ithome.com.tw/" target="_blank" class="footer__link">iThome</a></li>
+                    <li><a href="https://www.ithome.com.tw/aboutus/" target="_blank" class="footer__link">刊登廣告</a></li>
+                    <li><a href="https://www.ithome.com.tw/aboutus/" target="_blank" class="footer__link">授權服務</a></li>
+                    <li><a href="mailto:ithelp@mail.ithome.com.tw" class="footer__link">服務信箱</a></li>
+                    <li><a href="https://www.ithome.com.tw/terms" target="_blank" class="footer__link">隱私權聲明與會員使用條款</a></li>
+                    <li><a href="https://ithelp.ithome.com.tw/guide" class="footer__link">iT邦幫忙使用說明</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://ithelp.ithome.com.tw/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.4.2/js/messenger.min.js"></script>
+<script>
+    Messenger.options = {
+        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left',
+        theme: 'block'
+    };
+
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    window.Notification.TOKEN = getCookie("_token");
+</script>
+<script>
+    $(function(){
+        $.ajaxPrefilter(function(options, originalOptions, jqXHR){
+            if (options.type.toLowerCase() !== "get" && !options.beforeSend) {
+                options.beforeSend = function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-TOKEN', 'Q9vFUAlNF3zIG36QaFSWdbreiVPJMqTjtxstePKB');
+                }
+            }
+        });
+    });
+</script>
+<script src="https://ithelp.ithome.com.tw/js/lib/vue.min.js"></script>
+<script src="https://ithelp.ithome.com.tw/js/lib/sweetalert.min.js"></script>
+<script src="https://ithelp.ithome.com.tw/js/event.js?20180530"></script>
+<script src="https://ithelp.ithome.com.tw/lib/select2/js/select2.full.min.js"></script>
+
+<script src="https://ithelp.ithome.com.tw/js/ImgPreview.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var self = this;
+    const itPlusVideo = new Vue({
+        el: '#it_plus_video',
+        data: {
+            items: [],
+        },
+        created() {
+            this.fetchData();
+        },
+        methods: {
+            fetchData() {
+                axios.get('/api/itplus/sidebar')
+                        .then(response => {
+                            this.items = response.data.data;
+                        })
+                        .catch(error => {
+                            console.error("error!", error);
+                        });
+//                const cacheKey = 'cachedData';
+//                const cachedDataString = localStorage.getItem(cacheKey);
+//                const cachedData = JSON.parse(cachedDataString);
+//
+//                // 檢查緩存數據是否存在並且未過期
+//                if (cachedData && Date.now() - cachedData.timestamp < 5 * 60 * 1000) {
+//                    // 使用緩存數據
+//                    this.items = cachedData.data;
+//                } else {
+//                    // 獲取最新數據
+//                    axios.get('/api/itplus/sidebar')
+//                            .then(response => {
+//                                console.log(response.data.cache);
+//                                this.items = response.data.data;
+//
+//                                // 將獲取到的數據存儲在本地存儲中
+//                                const newData = { data: response.data.data, timestamp: Date.now() };
+//                                localStorage.setItem(cacheKey, JSON.stringify(newData));
+//                            })
+//                            .catch(error => {
+//                                console.error("error!", error);
+//                            });
+//                }
+            },
+            formatDate(time) {
+                const parts = time.split(':');	//	移除":"符號
+                const hours = parseInt(parts[0]);
+                const minutes = parseInt(parts[1]);
+
+                const totalMinutes = hours * 60 + minutes;
+
+                return totalMinutes + " 分";
+            },
+        }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var self = this;
+    const itplusPopulaRecommendationsContent = new Vue({
+        el: '#itplusPopulaRecommendationsContent',
+        data: {
+            items: []
+        },
+        created() {
+            this.fetchData();
+        },
+        methods: {
+            fetchData() {
+                axios.get('/api/itplus/bottom')
+                        .then(response => {
+                            this.items = response.data.data;
+                            console.log(response.data.data);
+                        })
+                        .catch(error => {
+                            console.error("error!", error);
+                        });
+            },
+            formatDate(time) {
+                const parts = time.split(':');	//	移除":"符號
+                const hours = parseInt(parts[0]);
+                const minutes = parseInt(parts[1]);
+
+                const totalMinutes = hours * 60 + minutes;
+
+                return totalMinutes + " 分";
+            },
+        }
+    });
+</script>
+
+<div class="modal fade" id="AtUser" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">標記使用者</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="invite_person" class="control-label">輸入對方的帳號或暱稱</label>
+                    <input type="text" class="form-control modal-input" id="invite_person" v-model="result_text" debounce="500">
+                    <div id="editor_tagged_ids"></div>
+                </div>
+                <ul class="list-unstyled invitation">
+                    <li style="text-align: center">
+                        <template v-if="!!result_text && !result_list.length && is_loading">
+                            Loading
+                        </template>
+                        <template v-if="!!result_text && !result_list.length && !is_loading">
+                            找不到結果。
+                        </template>
+                    </li>
+                    <li class="invitation-list" v-for="result in result_list">
+                        <img v-if="result && result.center_id" :src="'https://member.ithome.com.tw/avatars/' + result.center_id + '?s=ithelp'" style="float: left; margin-left: 10px; width: 48px; height: 48px;">
+                        <div class="invitation-list__content clearfix">
+                            <a class="btn btn-main invitation-list__btn" @click="AtUserByID(result.label, result.id)">標記</a>
+                            <div><a href="#" class="invitation-list__name">{{ result.label }}</a></div>
+                            <div><a href="#" class="invitation-list__account">{{ result.account }}</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-main" data-dismiss="modal">關閉</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>hljs.highlightAll()</script>
+    </body>
+
+</html>

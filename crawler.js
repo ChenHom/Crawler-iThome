@@ -6,15 +6,20 @@ const path = require('path');
 
 const BASE_URL = 'https://ithelp.ithome.com.tw/2024ironman';
 const CACHE_DIR = path.join(__dirname, 'cache');
+const CATEGORIES_DIR = path.join(CACHE_DIR, 'categories');
 const OUTPUT_FILE = 'topics.md';
 
 if (!fs.existsSync(CACHE_DIR)) {
     fs.mkdirSync(CACHE_DIR);
 }
 
+if (!fs.existsSync(CATEGORIES_DIR)) {
+    fs.mkdirSync(CATEGORIES_DIR);
+}
+
 const getCacheFilePath = (url) => {
     const hash = crypto.createHash('md5').update(url).digest('hex');
-    return path.join(CACHE_DIR, hash);
+    return path.join(CACHE_DIR, hash + '.html');
 };
 
 const fetchPage = async (url) => {
@@ -64,22 +69,33 @@ const extractTopics = (html) => {
     return topics;
 };
 
+const extractArticleContent = async (url) => {
+    const html = await fetchPage(url);
+    const $ = cheerio.load(html);
+    const content = $('div.qa-panel').text().trim();
+    return content;
+};
+
+const saveCategoryTopics = (categoryName, topics) => {
+    const categoryFileName = encodeURIComponent(categoryName) + '.md';
+    const categoryFilePath = path.join(CATEGORIES_DIR, categoryFileName);
+    let content = `# ${categoryName}\n\n`;
+    topics.forEach(topic => {
+        const cacheFilePath = getCacheFilePath(topic.link);
+        const relativePath = path.relative(CATEGORIES_DIR, cacheFilePath);
+        content += `- [${topic.title}](${relativePath})\n`;
+        content += `  ${topic.content}\n\n`;
+    });
+    fs.writeFileSync(categoryFilePath, content, 'utf-8');
+};
+
 const saveTopics = (categoriesWithTopics) => {
     let content = '';
-    const uniqueTopics = new Set();
-
     categoriesWithTopics.forEach(category => {
-        content += `## ${category.name}\n`;
-        category.topics.forEach(topic => {
-            const topicKey = `${topic.title}-${topic.link}`;
-            if (!uniqueTopics.has(topicKey)) {
-                uniqueTopics.add(topicKey);
-                content += `- [${topic.title}](${topic.link})\n`;
-            }
-        });
-        content += '\n';
+        const categoryFileName = encodeURIComponent(category.name) + '.md';
+        const relativePath = path.relative(__dirname, path.join(CATEGORIES_DIR, categoryFileName));
+        content += `- [${category.name}](${relativePath})\n`;
     });
-
     fs.writeFileSync(OUTPUT_FILE, content, 'utf-8');
 };
 
@@ -93,7 +109,14 @@ const main = async () => {
             const categoryUrl = category.url.startsWith('http') ? category.url : `${BASE_URL}${category.url}`;
             const categoryHtml = await fetchPage(categoryUrl);
             const topics = extractTopics(categoryHtml);
+
+            for (const topic of topics) {
+                const articleUrl = topic.link.startsWith('http') ? topic.link : `${BASE_URL}${topic.link}`;
+                topic.content = await extractArticleContent(articleUrl);
+            }
+
             categoriesWithTopics.push({ name: category.name, topics });
+            saveCategoryTopics(category.name, topics);
         }
 
         if (categoriesWithTopics.length > 0) {
