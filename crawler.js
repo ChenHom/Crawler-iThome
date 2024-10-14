@@ -53,7 +53,7 @@ const extractCategories = (html) => {
             categories.push({ name: categoryName, url: category });
         }
     });
-    // console.log('提取到的類別:', categories); // 添加這行來檢查提取到的類別
+    console.log('提取到的類別:', categories); // 添加這行來檢查提取到的類別
     return categories;
 };
 
@@ -112,6 +112,7 @@ const saveCategoryTopics = (categoryName, topics) => {
             const articleFilePath = getCacheFilePath(article.link);
             const relativePath = path.relative(topicDirPath, articleFilePath);
             topicContent += `- [${article.title}](${relativePath})\n`;
+            fs.writeFileSync(articleFilePath, article.content, 'utf-8'); // 只寫入文章內容
         });
         fs.writeFileSync(topicFilePath, topicContent, 'utf-8');
         indexContent += `- [${topic.title}](${path.relative(categoryDirPath, topicFilePath)})\n`;
