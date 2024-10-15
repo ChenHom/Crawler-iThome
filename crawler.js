@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const crypto = require('crypto');
 const path = require('path');
+const TurndownService = require('turndown');
 
 const BASE_URL = 'https://ithelp.ithome.com.tw/2024ironman';
 const CACHE_DIR = path.join(__dirname, 'cache');
@@ -78,17 +79,26 @@ const extractArticles = async (url) => {
     const html = await fetchPage(url); // 抓取系列文章頁面的 HTML
     const $ = cheerio.load(html); // 使用 cheerio 解析 HTML
     const articles = [];
-    const articleLinks = $('a.qa-list__title-link');
+    const articleLinks = $('a.qa-list__title-link'); // 更正這行
+    if (articleLinks.length <= 5) {
+        console.log(`系列文章少於或等於五篇，跳過抓取: ${url}`);
+        return articles; // 如果系列文章少於或等於五篇，返回空數組
+    }
+    const articlePromises = [];
+    const turndownService = new TurndownService(); // 初始化 Turndown 服務
     for (let i = 0; i < articleLinks.length; i++) {
         const element = articleLinks[i];
         const articleTitle = $(element).text().trim();
         const articleUrl = $(element).attr('href').trim();
-        const articleHtml = await fetchPage(articleUrl);
-        const article$ = cheerio.load(articleHtml);
-        const articleContent = article$('div.qa-markdown').html().trim();
-        articles.push({ title: articleTitle, content: articleContent, link: articleUrl });
+        articlePromises.push(fetchPage(articleUrl).then(articleHtml => {
+            const article$ = cheerio.load(articleHtml);
+            const articleContentHtml = article$('div.qa-markdown').html().trim();
+            const articleContentMarkdown = turndownService.turndown(articleContentHtml); // 將 HTML 轉換為 Markdown
+            articles.push({ title: articleTitle, content: articleContentMarkdown, link: articleUrl });
+        }));
     }
-    // console.log('提取到的文章內容:', articles); // 添加這行來檢查提取到的文章內容
+    await Promise.all(articlePromises);
+    console.log('提取到的文章內容:', articles); // 添加這行來檢查提取到的文章內容
     return articles; // 返回系列文章的每篇文章內容與標題
 };
 
@@ -101,6 +111,10 @@ const saveCategoryTopics = (categoryName, topics) => {
     const categoryIndexFilePath = path.join(categoryDirPath, 'index.md');
     let indexContent = `# ${categoryName}\n\n`;
     topics.forEach(topic => {
+        if (!topic.articles || topic.articles.length === 0) {
+            console.log(`跳過沒有文章的系列: ${topic.title}`);
+            return; // 如果沒有文章，跳過該系列
+        }
         const topicHash = crypto.createHash('md5').update(topic.title).digest('hex');
         const topicDirPath = path.join(categoryDirPath, topicHash);
         if (!fs.existsSync(topicDirPath)) {
@@ -131,6 +145,8 @@ const saveTopics = (categoriesWithTopics) => {
 };
 
 const main = async () => {
+    const startTime = Date.now(); // 開始計時
+    let totalArticles = 0; // 初始化文章計數
     try {
         const mainPageHtml = await fetchPage(BASE_URL);
         const categories = extractCategories(mainPageHtml);
@@ -143,7 +159,11 @@ const main = async () => {
 
             for (const topic of topics) {
                 const topicUrl = topic.link.startsWith('http') ? topic.link : `${BASE_URL}${topic.link}`;
-                topic.articles = await extractArticles(topicUrl);
+                const articles = await extractArticles(topicUrl);
+                if (articles.length > 0) {
+                    topic.articles = articles;
+                    totalArticles += articles.length; // 累加文章數量
+                }
             }
 
             categoriesWithTopics.push({ name: category.name, topics });
@@ -158,6 +178,10 @@ const main = async () => {
     } catch (error) {
         console.error('爬蟲過程中發生錯誤:', error);
     }
+    const endTime = Date.now(); // 結束計時
+    const elapsedTime = (endTime - startTime) / 1000; // 計算耗時，單位為秒
+    console.log(`爬蟲完成，耗時 ${elapsedTime} 秒`);
+    console.log(`共抓取了 ${totalArticles} 篇文章`); // 顯示抓取的文章數量
 };
 
 main().catch(console.error);
